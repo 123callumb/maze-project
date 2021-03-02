@@ -2,7 +2,8 @@
   (:use seesaw.core))
 
 (defn content []
-  "Hey look its me saying hello world for the 100th time in my life:)")
+  (let [big-label (label :text "This is a label omg") big-button (button :text "hey its me a button") panel (flow-panel :border 5 :items [big-label big-button])]
+    panel))
 
 (defn -main [& args]
   (invoke-later
