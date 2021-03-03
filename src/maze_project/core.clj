@@ -10,7 +10,7 @@
    (let [grid (create-grid 3 3)
          grid-bt (binary-tree grid)]
      (println grid)
-     grid))
+     grid-bt))
 
 (defn content []
   (let [big-label (label :text "This is a label omg")

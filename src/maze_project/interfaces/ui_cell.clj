@@ -7,7 +7,7 @@
 
 
 (defn draw-cell [cell g xPos yPos size]
-  (draw g (rect size size xPos yPos) (style :background (color 40 40 40)))
+  (draw g (rect xPos yPos size size) (style :background (color 40 40 40)))
   (let [wallThickness (int (Math/floor (/ size 10)))]
     (if (= (:north cell) 0) (draw g (rect xPos yPos size wallThickness) (style :background (color 13 224 143))))
     (if (= (:east cell) 0) (draw g (rect (- (+ xPos size) wallThickness) yPos wallThickness size) (style :background (color 13 234 43))))
