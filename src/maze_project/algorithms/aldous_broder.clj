@@ -28,7 +28,6 @@
               nextCol (:nextCol nextCellPos)
               cell ((grid nextRow) nextCol)
               alreadyVisited (cell-already-visited cell)]
-          (println "Modified " cellsModified " cells out of " cellsToVisit)
           (if (not alreadyVisited)
             (recur (break-walls grid row col nextRow nextCol) nextRow nextCol (inc cellsModified))
             (recur grid nextRow nextCol cellsModified)))))))

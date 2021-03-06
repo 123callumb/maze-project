@@ -1,5 +1,5 @@
 (ns maze-project.algorithms.reverse-backtracking
-  (:require [maze-project.algorithms.alg-helper :refer [get-next-rnd-cell-pos cell-already-visited break-walls]])
+  (:require [maze-project.algorithms.alg-helper :refer [cell-already-visited break-walls]])
   (:import (maze_project.algorithms.alg_helper CellPos)))
 
 (defn get-non-visited-neighbours [grid row col maxRow maxCol]
@@ -8,17 +8,17 @@
         hCol (inc col)
         hRow (inc row)
         northVisited (if (>= lRow 0) (cell-already-visited ((grid lRow) col)) true)
-        eastVisited (if (< (inc col) maxCol) (cell-already-visited ((grid row) hCol)) true)
-        southVisited (if (< (inc row) maxRow) (cell-already-visited ((grid hRow) col)) true)
-        westVisited (if (>= (dec col) 0)) (cell-already-visited ((grid row) lCol)) true]
+        eastVisited (if (< hCol maxCol) (cell-already-visited ((grid row) hCol)) true)
+        southVisited (if (< hRow maxRow) (cell-already-visited ((grid hRow) col)) true)
+        westVisited (if (>= lCol 0) (cell-already-visited ((grid row) lCol)) true)]
     (vec (filter some? [(if (not northVisited) (CellPos. lRow col))
                         (if (not eastVisited) (CellPos. row hCol))
                         (if (not southVisited) (CellPos. hRow col))
                         (if (not westVisited) (CellPos. row lCol))]))))
 
 (defn reverse-backtracking [gridMaze]
-  (let [maxRows (count grid)
-        maxCols (count (grid 0))
+  (let [maxRows (count gridMaze)
+        maxCols (count (gridMaze 0))
         startRow (rand-int maxRows)
         startCol (rand-int maxCols)
         cellsToVisit (* maxRows maxCols)]

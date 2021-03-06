@@ -5,13 +5,15 @@
   (:require [maze-project.models.grid :refer [create-grid]]
             [maze-project.algorithms.binary-tree :refer [binary-tree]]
             [maze-project.algorithms.aldous-broder :refer [aldous-broder]]
-            [maze-project.interfaces.ui-grid :refer [draw-grid]]))
+            [maze-project.interfaces.ui-grid :refer [draw-grid]]
+            [maze-project.algorithms.reverse-backtracking :refer [reverse-backtracking]]))
 
 (defn create-maze []
-   (let [grid (create-grid 20 20)
+   (let [grid (create-grid 10 10)
          grid-bt (binary-tree grid)
-         grid-ab (aldous-broder grid)]
-     grid-ab))
+         grid-ab (aldous-broder grid)
+         grid-rb (reverse-backtracking grid)]
+     grid-rb))
 
 (defn content []
   (let [big-label (label :text "This is a label omg")
