@@ -1,4 +1,5 @@
-(ns maze-project.algorithms.aldous-broder)
+(ns maze-project.algorithms.aldous-broder
+  (:require [maze-project.algorithms.alg-helper :refer [cell-already-visited break-walls]]))
 
 ; Randomly gets the next neighbour cell to go to by returning its position.
 ; Makes sure the next positions returned do not go outside of the maze
@@ -11,30 +12,6 @@
         (if (and (>= nextRow 0) (< nextRow maxRow) (>= nextCol 0) (< nextCol maxCol))
           {:nextRow nextRow :nextCol nextCol}
           (recur)))))
-
-; Use the current cell position and the next cell position to find which walls
-; need to be broken
-; Might move this to a global helper, seems to be quite relevant for all wall
-; breaking, along with the break-walls function too
-(defn find-walls-to-break [row col nRow nCol]
-  (let [currentWall (cond
-                      (< nCol col) :west
-                      (> nCol col) :east
-                      (< nRow row) :north
-                      :else :south)
-        wallNeighbours {:north :south :east :west :south :north :west :east}
-        neighbourWall (currentWall wallNeighbours)]
-    {:current currentWall :neighbour neighbourWall}))
-
-; See if a cell at a given position has already been visited
-(defn cell-already-visited [cell]
-  (or (= (:north cell) 1) (= (:east cell) 1) (= (:west cell) 1) (= (:south cell) 1)))
-
-(defn break-walls [grid row col nRow nCol]
-  (let [wallsToBreak (find-walls-to-break row col nRow nCol)
-        currentWall (:current wallsToBreak)
-        neighbourWall (:neighbour wallsToBreak)]
-    (assoc-in (assoc-in grid [row col currentWall] 1) [nRow nCol neighbourWall] 1)))
 
 (defn aldous-broder [gridMaze]
   (let [maxRows (count gridMaze)
@@ -54,4 +31,3 @@
           (if (not alreadyVisited)
             (recur (break-walls grid row col nextRow nextCol) nextRow nextCol (inc cellsModified))
             (recur grid nextRow nextCol cellsModified)))))))
-

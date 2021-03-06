@@ -8,10 +8,9 @@
             [maze-project.interfaces.ui-grid :refer [draw-grid]]))
 
 (defn create-maze []
-   (let [grid (create-grid 100 100)
+   (let [grid (create-grid 20 20)
          grid-bt (binary-tree grid)
          grid-ab (aldous-broder grid)]
-     (println grid)
      grid-ab))
 
 (defn content []
