@@ -7,7 +7,7 @@
             [maze-project.interfaces.ui-grid :refer [draw-grid]]))
 
 (defn create-maze []
-   (let [grid (create-grid 3 3)
+   (let [grid (create-grid 20 20)
          grid-bt (binary-tree grid)]
      (println grid)
      grid-bt))
