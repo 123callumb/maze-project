@@ -4,13 +4,15 @@
         [seesaw.color])
   (:require [maze-project.models.grid :refer [create-grid]]
             [maze-project.algorithms.binary-tree :refer [binary-tree]]
+            [maze-project.algorithms.aldous-broder :refer [aldous-broder]]
             [maze-project.interfaces.ui-grid :refer [draw-grid]]))
 
 (defn create-maze []
-   (let [grid (create-grid 20 20)
-         grid-bt (binary-tree grid)]
+   (let [grid (create-grid 100 100)
+         grid-bt (binary-tree grid)
+         grid-ab (aldous-broder grid)]
      (println grid)
-     grid-bt))
+     grid-ab))
 
 (defn content []
   (let [big-label (label :text "This is a label omg")
