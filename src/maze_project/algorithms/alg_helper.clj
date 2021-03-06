@@ -1,5 +1,9 @@
 (ns maze-project.algorithms.alg-helper)
 
+; This is a helper class, these functions will be useful in most maze creation algorithms
+
+(defrecord CellPosResponse [row col])
+
 ; Takes the current cell position and the next cell position and returns which
 ; walls need to be broken to link them together.
 (defn find-walls-to-break [row col nRow nCol]
