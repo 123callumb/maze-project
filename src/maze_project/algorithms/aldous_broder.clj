@@ -14,11 +14,13 @@
 
 ; Use the current cell position and the next cell position to find which walls
 ; need to be broken
-(defn find-walls-to-break [currentRow currentCol neighbourRow neighbourCol]
+; Might move this to a global helper, seems to be quite relevant for all wall
+; breaking, along with the break-walls function too
+(defn find-walls-to-break [row col nRow nCol]
   (let [currentWall (cond
-                      (< neighbourCol currentCol) :west
-                      (> neighbourCol currentCol) :east
-                      (< neighbourRow currentRow) :north
+                      (< nCol col) :west
+                      (> nCol col) :east
+                      (< nRow row) :north
                       :else :south)
         wallNeighbours {:north :south :east :west :south :north :west :east}
         neighbourWall (currentWall wallNeighbours)]
@@ -28,13 +30,25 @@
 (defn cell-already-visited [cell]
   (or (= (:north cell) 1) (= (:east cell) 1) (= (:west cell) 1) (= (:south cell) 1)))
 
-(defn begin-journey [gridMaze startRow startCol maxRows maxCols]
-  (let [cellsToVisit (* maxRows maxCols)])
-  (loop [grid gridMaze row startRow col startCol cellsModified 1]
-    (let [nextCellPos (get-next-cell-pos row col maxRows maxCols)])))
+(defn break-walls [grid row col nRow nCol]
+  (let [wallsToBreak (find-walls-to-break row col nRow nCol)
+        currentWall (:current wallsToBreak)
+        neighbourWall (:neighbour wallsToBreak)]
+    (assoc-in (assoc-in grid [row col currentWall] 1) [nRow nCol neighbourWall] 1)))
 
 (defn aldous-broder [gridMaze]
-  (let [rows (count gridMaze)
-        cols (count (gridMaze 0))
-        startRow (rand-int rows)
-        startCol (rand-int cols)]))
+  (let [maxRows (count gridMaze)
+        maxCols (count (gridMaze 0))
+        startRow (rand-int maxRows)
+        startCol (rand-int maxCols)
+        cellsToVisit (* maxRows maxCols)]
+    (loop [grid gridMaze row startRow col startCol cellsModified 1]
+      (let [nextCellPos (get-next-cell-pos row col maxRows maxCols)
+            nextRow (:nextRow nextCellPos)
+            nextCol (:nextCol nextCellPos)
+            cell ((grid nextRow) nextCol)
+            alreadyVisited (cell-already-visited cell)]
+        (println "Modified " cellsModified " cells out of " cellsToVisit)
+        (if (not alreadyVisited)
+          (recur (break-walls grid row col nextRow nextCol) nextRow nextCol (inc cellsModified))
+          (recur grid nextRow nextCol cellsModified))))))
