@@ -23,7 +23,7 @@
         startCol (rand-int maxCols)
         cellsToVisit (* maxRows maxCols)]
     (loop [grid gridMaze row startRow col startCol cellsVisited 1 journey [(CellPos. row col)]]
-      (if (and (= cellsVisited cellsToVisit) (= startCol col) (= startRow row))
+      (if (and (= cellsVisited cellsToVisit))
         grid
         (let [nonVisitedNeighbours (get-non-visited-neighbours grid row col maxRows maxCols)
               nonVisitedAmount (count nonVisitedNeighbours)]

@@ -9,9 +9,9 @@
             [maze-project.algorithms.reverse-backtracking :refer [reverse-backtracking]]))
 
 (defn create-maze []
-   (let [grid (create-grid 10 10)
+   (let [grid (create-grid 40 40)
          grid-bt (binary-tree grid)
-         grid-ab (aldous-broder grid)
+         ;grid-ab (aldous-broder grid)
          grid-rb (reverse-backtracking grid)]
      grid-rb))
 
