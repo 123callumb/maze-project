@@ -1,4 +1,4 @@
-(ns maze-project.algorithms.binary-tree
+(ns maze-project.algorithms.maze-creation.binary-tree
   (:require [maze-project.models.grid :refer [create-grid]])
   (:import (maze_project.models.grid MazeGrid)
            (maze_project.models.cell CellPos)))

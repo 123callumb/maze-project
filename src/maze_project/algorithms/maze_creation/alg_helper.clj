@@ -1,4 +1,4 @@
-(ns maze-project.algorithms.alg-helper)
+(ns maze-project.algorithms.maze-creation.alg-helper)
 
 ; This is a helper class, these functions will be useful in most maze creation algorithms
 

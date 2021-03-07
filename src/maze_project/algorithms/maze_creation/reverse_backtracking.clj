@@ -1,5 +1,5 @@
-(ns maze-project.algorithms.reverse-backtracking
-  (:require [maze-project.algorithms.alg-helper :refer [cell-already-visited break-walls]])
+(ns maze-project.algorithms.maze-creation.reverse-backtracking
+  (:require [maze-project.algorithms.maze-creation.alg-helper :refer [cell-already-visited break-walls]])
   (:import (maze_project.models.cell CellPos)
            (maze_project.models.grid MazeGrid)))
 

@@ -2,9 +2,9 @@
   (:use [seesaw.core]
         [seesaw.color])
   (:require [maze-project.models.grid :refer [create-grid]]
-            [maze-project.algorithms.reverse-backtracking :refer [reverse-backtracking]]
-            [maze-project.algorithms.aldous-broder :refer [aldous-broder]]
-            [maze-project.algorithms.binary-tree :refer [binary-tree]]
+            [maze-project.algorithms.maze-creation.reverse-backtracking :refer [reverse-backtracking]]
+            [maze-project.algorithms.maze-creation.aldous-broder :refer [aldous-broder]]
+            [maze-project.algorithms.maze-creation.binary-tree :refer [binary-tree]]
             [maze-project.interface.ui-grid :refer [draw-grid]]))
 
 (defn get-maze-canvas [frame] (select frame [:#mazeCanvas]))
