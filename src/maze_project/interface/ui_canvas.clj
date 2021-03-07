@@ -5,7 +5,8 @@
             [maze-project.algorithms.maze-creation.reverse-backtracking :refer [reverse-backtracking]]
             [maze-project.algorithms.maze-creation.aldous-broder :refer [aldous-broder]]
             [maze-project.algorithms.maze-creation.binary-tree :refer [binary-tree]]
-            [maze-project.interface.ui-grid :refer [draw-grid]]))
+            [maze-project.interface.ui-grid :refer [draw-grid]]
+            [maze-project.algorithms.maze-solving.depth-first :refer [depth-first]]))
 
 (defn get-maze-canvas [frame] (select frame [:#mazeCanvas]))
 
@@ -22,7 +23,9 @@
 ; Might have to take this out when solving comes into play as it will need more layers on the graphics draw func
 (defn draw-maze [frame mazeName rows cols]
   (let [maze (create-maze mazeName rows cols)
-        canvas (get-maze-canvas frame)]
+        canvas (get-maze-canvas frame)
+        testJourney (depth-first maze)]
+    (println testJourney)
     (config! canvas :paint #(draw-grid maze %1 %2))))
 
 (defn create-canvas []

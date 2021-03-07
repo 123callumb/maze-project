@@ -12,6 +12,14 @@
         h (- cellHeight padH)]
     (draw g (ellipse x y w h) (style :background clr))))
 
+(defn draw-journey [g canvas maxRows maxCols journey]
+  (let [h (.getHeight canvas)
+        w (.getWidth canvas)
+        width (h)]
+    (loop [index 0]
+      (let [cellPos (journey index)]
+        ))))
+
 (defn draw-grid [mazeGrid canvas g]
   (let [h (.getHeight canvas)
         w (.getWidth canvas)
