@@ -5,9 +5,9 @@
 (defn create-left-panel []
   (let [mazeComboLabel (label :text "Set maze generation algorithm:")
         mazeComboBox (combobox :id :mazeComboSel :model get-maze-names)]
-    (flow-panel
-      :align :left
-      :hgap 20
+    (grid-panel
+      :border "Properties"
+      :columns 1
       :items [mazeComboLabel mazeComboBox])))
 
 (defn create-layout [] (border-panel :west (create-left-panel) :center (create-canvas)))

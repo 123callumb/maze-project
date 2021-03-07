@@ -1,11 +1,12 @@
 (ns maze-project.core
   (:use [seesaw.core])
   (:require [maze-project.interface.ui-layout :refer [create-layout]]
+            [maze-project.interface.listeners :refer [register-listeners]]
             [maze-project.interface.ui-canvas :refer [draw-maze]]))
 
 (defn create-content []
   (let [layout (create-layout)]
-       (listen (select layout [:#mazeComboSel]) :selection (fn [e] (println "Selection is " (selection e))))
+       (register-listeners layout)
        (draw-maze layout "Binary Tree" 20 20)
        layout))
 
