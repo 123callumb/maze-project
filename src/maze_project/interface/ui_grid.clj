@@ -1,4 +1,4 @@
-(ns maze-project.interfaces.ui-grid
+(ns maze-project.interface.ui-grid
   (:require [maze-project.interfaces.ui-cell :refer [draw-cell]]))
 
 (defn draw-grid [grid canvas g]
@@ -9,7 +9,6 @@
         cellSize (int (Math/floor (/ h smallestDimension)))]
     (loop [row 0 col 0]
       (let [cell ((grid row) col)]
-        (println cell (* col cellSize) (* row cellSize) cellSize)
         (draw-cell cell g (* col cellSize) (* row cellSize) cellSize)
         (cond
           (and (= row (dec rowCount)) (= col (dec colCount))) nil

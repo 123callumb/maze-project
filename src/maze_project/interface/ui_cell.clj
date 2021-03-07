@@ -1,4 +1,4 @@
-(ns maze-project.interfaces.ui-cell
+(ns maze-project.interface.ui-cell
   (:use [seesaw.core]
       [seesaw.graphics]
       [seesaw.font]

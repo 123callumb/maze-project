@@ -2,28 +2,11 @@
   (:use [seesaw.core]
         [seesaw.graphics]
         [seesaw.color])
-  (:require [maze-project.models.grid :refer [create-grid]]
-            [maze-project.algorithms.binary-tree :refer [binary-tree]]
-            [maze-project.algorithms.aldous-broder :refer [aldous-broder]]
-            [maze-project.interfaces.ui-grid :refer [draw-grid]]
-            [maze-project.algorithms.reverse-backtracking :refer [reverse-backtracking]]))
+  (:require [maze-project.interface.ui-layout :refer [create-layout]]))
 
-(defn create-maze []
-   (let [grid (create-grid 40 40)
-         grid-bt (binary-tree grid)
-         ;grid-ab (aldous-broder grid)
-         grid-rb (reverse-backtracking grid)]
-     grid-rb))
-
-(defn content []
-  (let [big-label (label :text "This is a label omg")
-        maze (create-maze)
-        mazeCanvas (canvas :id :canvas :background (color 240 240 240) :paint (fn [c g] (draw-grid maze c g)))
-        big-button (button :text "Draw")
-        panel (border-panel
-                            :center mazeCanvas
-                            :south (horizontal-panel :items [big-label big-button]))]
-    panel))
+(defn create-content []
+  (let [layout (create-layout)]
+       (listen (select layout [:#mazeComboSel]) :selection (fn [e] (println "Selection is " (selection e))))))
 
 (defn -main [& args]
   (invoke-later
@@ -32,7 +15,7 @@
           :width 640
           :height 500
           :minimum-size [640 :by 500]
-          :content (content)
+          :content (create-content)
           :on-close :exit)
         pack!
         show!)))
