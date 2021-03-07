@@ -1,12 +1,13 @@
 (ns maze-project.core
-  (:use [seesaw.core]
-        [seesaw.graphics]
-        [seesaw.color])
-  (:require [maze-project.interface.ui-layout :refer [create-layout]]))
+  (:use [seesaw.core])
+  (:require [maze-project.interface.ui-layout :refer [create-layout]]
+            [maze-project.interface.ui-canvas :refer [draw-maze]]))
 
 (defn create-content []
   (let [layout (create-layout)]
-       (listen (select layout [:#mazeComboSel]) :selection (fn [e] (println "Selection is " (selection e))))))
+       (listen (select layout [:#mazeComboSel]) :selection (fn [e] (println "Selection is " (selection e))))
+       (draw-maze layout "Binary Tree" 20 20)
+       layout))
 
 (defn -main [& args]
   (invoke-later

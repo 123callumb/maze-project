@@ -1,5 +1,6 @@
 (ns maze-project.interface.ui-canvas
-  (:use [seesaw.core])
+  (:use [seesaw.core]
+        [seesaw.color])
   (:require [maze-project.models.grid :refer [create-grid]]
             [maze-project.algorithms.reverse-backtracking :refer [reverse-backtracking]]
             [maze-project.algorithms.aldous-broder :refer [aldous-broder]]
@@ -10,6 +11,7 @@
 
 (def get-maze-names ["Binary Tree" "Aldous Broder" "Reverse Backtracking"])
 
+; Maybe move this to a generic maze file
 (defn create-maze [mazeName rows cols]
   (let [grid (create-grid rows cols)]
     (cond
@@ -21,10 +23,7 @@
 (defn draw-maze [frame mazeName rows cols]
   (let [maze (create-maze mazeName rows cols)
         canvas (get-maze-canvas frame)]
-    (-> canvas (config! :paint #(draw-grid maze %1 %2)))))
+    (config! canvas :paint #(draw-grid maze %1 %2))))
 
 (defn create-canvas []
-  (canvas
-    :id :mazeCanvas
-    :background (color 240 240 240)
-    :paint (fn [c g] (draw-grid maze c g))))
+  (canvas :id :mazeCanvas :background (color 240 240 240) :paint nil))

@@ -1,5 +1,5 @@
 (ns maze-project.interface.ui-grid
-  (:require [maze-project.interfaces.ui-cell :refer [draw-cell]]))
+  (:require [maze-project.interface.ui-cell :refer [draw-cell]]))
 
 (defn draw-grid [grid canvas g]
   (let [h (.getHeight canvas)
