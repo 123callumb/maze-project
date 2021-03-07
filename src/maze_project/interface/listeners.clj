@@ -2,11 +2,12 @@
   (:use [seesaw.core])
   (:require [maze-project.interface.ui-canvas :refer [draw-maze]]))
 
-(defn get-row-slider-val [frame]
-  (selection (select frame [:#rowSlider])))
-
-(defn get-col-slider-val [frame]
-  (selection (select frame [:#colSlider])))
+(defn get-slider-val [frame sliderID sliderLabelID]
+  (let [slider (select frame [sliderID])
+        sliderCounter (select frame [sliderLabelID])
+        sliderVal (selection slider)]
+    (config! sliderCounter :text sliderVal)
+    sliderVal))
 
 (defn get-maze-alg-name [frame]
   (selection (select frame [:#mazeComboSel])))
@@ -14,8 +15,8 @@
 (defn update-maze-draw [e]
   (let [frame (to-frame e)
         mazeAlgName (get-maze-alg-name frame)
-        rows (get-row-slider-val frame)
-        cols (get-col-slider-val frame)]
+        rows (get-slider-val frame :#rowSlider :#rowCountLabel)
+        cols (get-slider-val frame :#colSlider :#colCountLabel)]
     (draw-maze frame mazeAlgName rows cols)))
 
 (defn register-listeners [l]

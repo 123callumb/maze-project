@@ -14,4 +14,14 @@
       :columns 1
       :items [mazeComboLabel mazeComboBox rowSliderLabel rowSlider colSliderLabel colSlider])))
 
-(defn create-layout [] (border-panel :west (create-left-panel) :center (create-canvas)))
+(defn create-bottom-panel []
+  (let [rowCountPrefix (label :text "Rows: ")
+        rowCountLabel (label :id :rowCountLabel :text 20)
+        colCountPrefix (label :text "Cols: ")
+        colCountLabel (label :id :colCountLabel :text  20)]
+    (flow-panel :items [rowCountPrefix rowCountLabel colCountPrefix colCountLabel])))
+
+(defn create-layout [] (border-panel
+                         :west (create-left-panel)
+                         :center (create-canvas)
+                         :south (create-bottom-panel)))
