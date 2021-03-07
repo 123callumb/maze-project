@@ -1,6 +1,7 @@
 (ns maze-project.algorithms.reverse-backtracking
   (:require [maze-project.algorithms.alg-helper :refer [cell-already-visited break-walls]])
-  (:import (maze_project.algorithms.alg_helper CellPos)))
+  (:import (maze_project.models.cell CellPos)
+           (maze_project.models.grid MazeGrid)))
 
 (defn get-non-visited-neighbours [grid row col maxRow maxCol]
   (let [lCol (dec col)
@@ -17,14 +18,15 @@
                         (if (not westVisited) (CellPos. row lCol))]))))
 
 (defn reverse-backtracking [gridMaze]
-  (let [maxRows (count gridMaze)
+  (let [gridMaze (:grid gridMaze)
+        maxRows (count gridMaze)
         maxCols (count (gridMaze 0))
         startRow (rand-int maxRows)
         startCol (rand-int maxCols)
         cellsToVisit (* maxRows maxCols)]
     (loop [grid gridMaze row startRow col startCol cellsVisited 1 journey [(CellPos. row col)]]
       (if (and (= cellsVisited cellsToVisit))
-        grid
+        (MazeGrid. grid (CellPos. startRow startCol) (CellPos. row col))
         (let [nonVisitedNeighbours (get-non-visited-neighbours grid row col maxRows maxCols)
               nonVisitedAmount (count nonVisitedNeighbours)]
           (if (> nonVisitedAmount 0)

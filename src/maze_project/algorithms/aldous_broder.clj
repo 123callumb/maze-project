@@ -1,5 +1,7 @@
 (ns maze-project.algorithms.aldous-broder
-  (:require [maze-project.algorithms.alg-helper :refer [cell-already-visited break-walls]]))
+  (:require [maze-project.algorithms.alg-helper :refer [cell-already-visited break-walls]])
+  (:import (maze_project.models.grid MazeGrid)
+           (maze_project.models.cell CellPos)))
 
 ; Randomly gets the next neighbour cell to go to by returning its position.
 ; Makes sure the next positions returned do not go outside of the maze
@@ -15,14 +17,15 @@
 
 
 (defn aldous-broder [gridMaze]
-  (let [maxRows (count gridMaze)
+  (let [gridMaze (:grid gridMaze)
+        maxRows (count gridMaze)
         maxCols (count (gridMaze 0))
         startRow (rand-int maxRows)
         startCol (rand-int maxCols)
         cellsToVisit (* maxRows maxCols)]
     (loop [grid gridMaze row startRow col startCol cellsModified 1]
       (if (= cellsModified cellsToVisit)
-        grid
+        (MazeGrid. grid (CellPos. startRow startCol) (CellPos. row col))
         (let [nextCellPos (get-next-rnd-cell-pos row col maxRows maxCols)
               nextRow (:nextRow nextCellPos)
               nextCol (:nextCol nextCellPos)

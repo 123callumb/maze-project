@@ -1,5 +1,7 @@
 (ns maze-project.algorithms.binary-tree
-  (:require [maze-project.models.grid :refer [create-grid]]))
+  (:require [maze-project.models.grid :refer [create-grid]])
+  (:import (maze_project.models.grid MazeGrid)
+           (maze_project.models.cell CellPos)))
 
 (defn open-cell-north [grid row col]
   (assoc-in (assoc-in grid [row col :north] 1) [(dec row) col :south] 1))
@@ -23,13 +25,10 @@
         grid
         (recur (open-cell grid row colIndex) (inc colIndex))))))
 
-
 (defn binary-tree [gridMaze]
-  (let [rowAmount (count gridMaze)]
+  (let [gridMaze (:grid gridMaze)
+        rowAmount (count gridMaze)]
     (loop [grid gridMaze rowIndex 0]
       (if (= rowIndex rowAmount)
-        grid
+        (MazeGrid. grid (CellPos. 0 0) (CellPos. (dec rowAmount) (dec (count (grid 0)))))
         (recur (walk-row grid rowIndex) (inc rowIndex))))))
-
-(defn test-2 []
-  (create-grid 3 3))
