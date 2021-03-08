@@ -2,12 +2,14 @@
   (:use [seesaw.core])
   (:require [maze-project.interface.ui-layout :refer [create-layout]]
             [maze-project.handlers.listeners :refer [register-listeners]]
-            [maze-project.interface.ui-canvas :refer [draw-maze]]))
+            [maze-project.interface.ui-canvas :refer [draw-maze]]
+            [maze-project.models.maze :refer [set-maze]]))
 
 (defn create-content []
   (let [layout (create-layout)]
        (register-listeners layout)
-       (draw-maze layout "Binary Tree" 20 20)
+       (set-maze 20 20 "Binary Tree")
+       (draw-maze layout)
        layout))
 
 (defn -main [& args]
