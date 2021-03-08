@@ -37,14 +37,14 @@
   (let [fileName (get-file false)
         file (slurp fileName)
         lines (str/split file #"\n")
-        rows (lines 0)
-        cols (lines 1)
+        rows (int (lines 0))
+        cols (int (lines 1))
         startPosLn (str/split (lines 2) #",")
         endPosLn (str/split (lines 3) #",")
         cellsLn (lines 4)
         gridCells (str/split cellsLn #"|")
-        startPos (CellPos. (startPosLn 0) (startPosLn 1))
-        endPos (CellPos. (endPosLn 0) (endPosLn 1))]
+        startPos (CellPos. (int (startPosLn 0)) (int (startPosLn 1)))
+        endPos (CellPos. (int (endPosLn 0)) (int (endPosLn 1)))]
     (loop [row 0 col 0 index 0 grid [] currentRow []]
       (if (and (= row rows) (= col cols))
        (let [loadedMaze (MazeGrid. grid startPos endPos)]
