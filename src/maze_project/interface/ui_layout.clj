@@ -6,9 +6,9 @@
   (let [mazeComboLabel (label :text "Set maze generation algorithm:")
         mazeComboBox (combobox :id :mazeComboSel :model get-maze-names)
         rowSliderLabel (label :text "Maze Rows:")
-        rowSlider (slider :id :rowSlider :min 3 :max 50 :value 4 :orientation :horizontal :minor-tick-spacing 1 :major-tick-spacing 1 :snap-to-ticks? true)
+        rowSlider (slider :id :rowSlider :min 3 :max 50 :value 20 :orientation :horizontal :minor-tick-spacing 1 :major-tick-spacing 1 :snap-to-ticks? true)
         colSliderLabel (label :text "Maze Columns:")
-        colSlider (slider :id :colSlider :min 3 :max 50 :value 4 :orientation :horizontal :minor-tick-spacing 1 :major-tick-spacing 1 :snap-to-ticks? true)]
+        colSlider (slider :id :colSlider :min 3 :max 50 :value 20 :orientation :horizontal :minor-tick-spacing 1 :major-tick-spacing 1 :snap-to-ticks? true)]
     (grid-panel
       :border "Properties"
       :columns 1
@@ -16,9 +16,9 @@
 
 (defn create-bottom-panel []
   (let [rowCountPrefix (label :text "Rows: ")
-        rowCountLabel (label :id :rowCountLabel :text 4)
+        rowCountLabel (label :id :rowCountLabel :text 20)
         colCountPrefix (label :text "Cols: ")
-        colCountLabel (label :id :colCountLabel :text  4)]
+        colCountLabel (label :id :colCountLabel :text  20)]
     (flow-panel :items [rowCountPrefix rowCountLabel colCountPrefix colCountLabel])))
 
 (defn create-layout [] (border-panel

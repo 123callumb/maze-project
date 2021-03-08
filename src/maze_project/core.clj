@@ -7,7 +7,7 @@
 (defn create-content []
   (let [layout (create-layout)]
        (register-listeners layout)
-       (draw-maze layout "Binary Tree" 4 4)
+       (draw-maze layout "Binary Tree" 20 20)
        layout))
 
 (defn -main [& args]

@@ -17,7 +17,7 @@
         endRow (:row mazeEndPos)
         endCol (:col mazeEndPos)
         grid (:grid gridMaze)]
-    (loop [row startRow col startCol journey [mazeStartPos] visitedCells [mazeStartPos]]
+    (loop [row startRow col startCol journey [] visitedCells []]
       (if (and (= row endRow) (= col endCol))
         (vec journey)
         (let [cell ((grid row) col)
@@ -26,15 +26,17 @@
           (println row ", " col)
           (println "Possible pathways " possiblePathways)
           (if (> pathwayCount 0)
-            (let [rndPathway (possiblePathways (rand-int pathwayCount))
-                  updatedJourney (conj journey rndPathway)
+            (let [currentCell (CellPos. row col)
+                  updatedJourney (conj journey currentCell)
+                  updatedVisitedCells (conj visitedCells currentCell)
+                  rndPathway (possiblePathways (rand-int pathwayCount))
                   nextRow (:row rndPathway)
-                  nextCol (:col rndPathway)
-                  updatedVisitedCells (conj visitedCells rndPathway)]
+                  nextCol (:col rndPathway)]
               (recur nextRow nextCol updatedJourney updatedVisitedCells))
             (let [prevPos (last journey)
                   updatedJourney (pop journey)
+                  updatedVisited (conj visitedCells (CellPos. row col))
                   prevRow (:row prevPos)
                   prevCol (:col prevPos)]
               (println "Going back one cell")
-              (recur prevRow prevCol updatedJourney visitedCells))))))))
+              (recur prevRow prevCol updatedJourney updatedVisited))))))))
