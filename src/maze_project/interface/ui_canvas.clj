@@ -25,7 +25,7 @@
   (let [maze (create-maze mazeName rows cols)
         canvas (get-maze-canvas frame)
         journey (depth-first maze)]
-    (config! canvas :paint (fn[c g] [(draw-grid maze c g) (draw-journey g c rows cols journey)]))))
+    (config! canvas :paint (fn[c g] [(draw-journey g c rows cols journey) (draw-grid maze c g)]))))
 
 (defn create-canvas []
-  (canvas :id :mazeCanvas :background (color 240 240 240) :paint nil))
+  (canvas :id :mazeCanvas :background (color 40 40 40) :paint nil))

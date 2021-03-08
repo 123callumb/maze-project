@@ -4,13 +4,9 @@
   (:require [maze-project.interface.ui-cell :refer [draw-cell]]))
 
 (defn highlight-pos [g pos cellWidth cellHeight clr]
-  (let [padH (int (Math/floor (/ cellHeight 1.5)))
-        padW (int (Math/floor (/ cellWidth 1.5)))
-        x (+ (* (:col pos) cellWidth) (/ padW 2))
-        y (+ (* (:row pos) cellHeight) (/ padH 2))
-        w (- cellWidth padW)
-        h (- cellHeight padH)]
-    (draw g (rect x y w h) (style :background clr))))
+  (let [x (* (:col pos) cellWidth)
+        y (* (:row pos) cellHeight)]
+    (draw g (rect  x y cellWidth cellHeight) (style :background clr))))
 
 (defn draw-journey [g canvas maxRows maxCols journey]
   (let [h (.getHeight canvas)
@@ -22,7 +18,7 @@
       (if (= index journeySize)
         nil
         (let [cellPos (journey index)]
-          (highlight-pos g cellPos cellWidth cellHeight (color 0 255 221))
+          (highlight-pos g cellPos cellWidth cellHeight (color 249 192 34 200))
           (recur (inc index)))))))
 
 (defn draw-grid [mazeGrid canvas g]
@@ -35,12 +31,13 @@
         colCount (count (grid 0))
         cellWidth (int (Math/floor (/ w colCount)))
         cellHeight (int (Math/floor (/ h rowCount)))]
+    (highlight-pos g mazeStart cellWidth cellHeight (color 30 204 18))
+    (highlight-pos g mazeEnd cellWidth cellHeight (color 232 71 71))
     (loop [row 0 col 0]
       (let [cell ((grid row) col)]
         (draw-cell cell g (* col cellWidth) (* row cellHeight) cellWidth cellHeight)
         (if (and (= row (dec rowCount)) (= col (dec colCount)))
-          [(highlight-pos g mazeStart cellWidth cellHeight (color 72 219 131))
-           (highlight-pos g mazeEnd cellWidth cellHeight (color 232 71 71))]
+          nil
           (if (= col (dec colCount))
             (recur (inc row) 0)
             (recur row (inc col))))))))
