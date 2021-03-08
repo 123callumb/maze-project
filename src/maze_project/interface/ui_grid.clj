@@ -6,8 +6,8 @@
 (defn highlight-pos [g pos cellWidth cellHeight clr]
   (let [padH (/ cellHeight 2)
         padW (/ cellWidth 2)
-        x (+ (* (:row pos) cellWidth) (/ padW 2))
-        y (+ (* (:col pos) cellHeight) (/ padH 2))
+        x (+ (* (:col pos) cellWidth) (/ padW 2))
+        y (+ (* (:row pos) cellHeight) (/ padH 2))
         w (- cellWidth padW)
         h (- cellHeight padH)]
     (draw g (ellipse x y w h) (style :background clr))))
@@ -15,10 +15,17 @@
 (defn draw-journey [g canvas maxRows maxCols journey]
   (let [h (.getHeight canvas)
         w (.getWidth canvas)
-        width (h)]
+        cellHeight (/ h maxRows)
+        cellWidth (/ w maxCols)
+        journeySize (count journey)]
+    (println "=== journey ===")
     (loop [index 0]
-      (let [cellPos (journey index)]
-        ))))
+      (if (= index journeySize)
+        nil
+        (let [cellPos (journey index)]
+          (println (:row cellPos) ", " (:col cellPos))
+          (highlight-pos g cellPos cellWidth cellHeight (color 0 255 221))
+          (recur (inc index)))))))
 
 (defn draw-grid [mazeGrid canvas g]
   (let [h (.getHeight canvas)

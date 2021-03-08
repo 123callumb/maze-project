@@ -5,7 +5,7 @@
             [maze-project.algorithms.maze-creation.reverse-backtracking :refer [reverse-backtracking]]
             [maze-project.algorithms.maze-creation.aldous-broder :refer [aldous-broder]]
             [maze-project.algorithms.maze-creation.binary-tree :refer [binary-tree]]
-            [maze-project.interface.ui-grid :refer [draw-grid]]
+            [maze-project.interface.ui-grid :refer [draw-grid draw-journey]]
             [maze-project.algorithms.maze-solving.depth-first :refer [depth-first]]))
 
 (defn get-maze-canvas [frame] (select frame [:#mazeCanvas]))
@@ -24,9 +24,8 @@
 (defn draw-maze [frame mazeName rows cols]
   (let [maze (create-maze mazeName rows cols)
         canvas (get-maze-canvas frame)
-        testJourney (depth-first maze)]
-    (println testJourney)
-    (config! canvas :paint #(draw-grid maze %1 %2))))
+        journey (depth-first maze)]
+    (config! canvas :paint (fn[c g] [(draw-grid maze c g) (draw-journey g c rows cols journey)]))))
 
 (defn create-canvas []
   (canvas :id :mazeCanvas :background (color 240 240 240) :paint nil))
