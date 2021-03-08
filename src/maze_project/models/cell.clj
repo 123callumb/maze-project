@@ -12,4 +12,8 @@
 
 (defn get-cell-from-str [cellStr]
   (let [points (str/split cellStr #",")]
-    (apply ->MazeCell points)))
+    (create-cell
+      (Integer/parseInt (points 0))
+      (Integer/parseInt (points 1))
+      (Integer/parseInt (points 2))
+      (Integer/parseInt (points 3)))))
