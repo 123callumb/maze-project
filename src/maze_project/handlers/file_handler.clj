@@ -4,8 +4,8 @@
             [clojure.string :as str])
   (:import (javax.swing JFileChooser)
            (javax.swing.filechooser FileNameExtensionFilter)
-           (maze_project.models.cell CellPos)
-           (maze_project.models.grid MazeGrid)))
+           (maze_project.models.grid MazeGrid)
+           (maze_project.models.cell CellPos)))
 
 (def fileExt "mze")
 
@@ -17,8 +17,10 @@
     (if (= retVal JFileChooser/APPROVE_OPTION)
       (.getAbsolutePath (.getSelectedFile fileChooser)))))
 
-(defn write-maze-to-file [fileName maze]
-  (let [startPos (:startPos maze)
+(defn save-maze []
+  (let [fileName (get-file true)
+        maze (get-maze)
+        startPos (:startPos maze)
         endPos (:endPos maze)
         startPosStr (str (:row startPos) "," (:col startPos))
         endPosStr (str (:row endPos) "," (:col endPos))
@@ -31,27 +33,24 @@
         fullFilePath (str fileName "." fileExt)]
     (spit fullFilePath finalStr :append false)))
 
-(defn save-maze []
-  (let [saveLoc (get-file true)
-        mazeToSave (get-maze)]
-    (write-maze-to-file saveLoc mazeToSave)))
-
-(defn load-maze [fileName]
-  (let [file (slurp fileName)
+(defn load-maze []
+  (let [fileName (get-file false)
+        file (slurp fileName)
         lines (str/split file #"\n")
         rows (lines 0)
         cols (lines 1)
-        startPosLn (lines 2)
-        endPosLn (lines 3)
+        startPosLn (str/split (lines 2) #",")
+        endPosLn (str/split (lines 3) #",")
         cellsLn (lines 4)
         gridCells (str/split cellsLn #"|")
-        startPos (apply ->CellPos (str/split startPosLn #","))
-        endPos (apply ->CellPos (str/split endPosLn #","))]
+        startPos (CellPos. (startPosLn 0) (startPosLn 1))
+        endPos (CellPos. (endPosLn 0) (endPosLn 1))]
     (loop [row 0 col 0 index 0 grid [] currentRow []]
       (if (and (= row rows) (= col cols))
-        (MazeGrid. grid startPos endPos)
-        (if (> col cols)
-          (recur (inc row) 0 index (conj grid currentRow) [])
-          (let [cell (get-cell-from-str (gridCells index))
-                updatedRow (conj currentRow cell)]
-            (recur row (inc col) (inc index) grid updatedRow)))))))
+       (let [loadedMaze (MazeGrid. grid startPos endPos)]
+         (set-maze loadedMaze))
+       (if (> col cols)
+         (recur (inc row) 0 index (conj grid currentRow) [])
+         (let [cell (get-cell-from-str (gridCells index))
+               updatedRow (conj currentRow cell)]
+           (recur row (inc col) (inc index) grid updatedRow)))))))

@@ -6,19 +6,18 @@
 
 (def get-maze-names ["Binary Tree" "Aldous Broder" "Reverse Backtracking"])
 
-(defn create-maze [mazeName rows cols]
-  (let [grid (create-grid rows cols)]
-    (cond
-      (= mazeName (get-maze-names 0)) (binary-tree grid)
-      (= mazeName (get-maze-names 1)) (aldous-broder grid)
-      (= mazeName (get-maze-names 2)) (reverse-backtracking grid))))
-
 (def CurrentMaze (atom {}))
 
-(defn set-maze [rows cols algName]
-  (let [newMaze (create-maze algName rows cols)]
-    (swap! CurrentMaze (fn[old new] new) newMaze)))
+(defn set-maze [newMaze]
+  (swap! CurrentMaze (fn[old new] new) newMaze))
 
+(defn create-and-set-maze [rows cols mazeName]
+  (let [grid (create-grid rows cols)
+        maze (cond
+               (= mazeName (get-maze-names 0)) (binary-tree grid)
+               (= mazeName (get-maze-names 1)) (aldous-broder grid)
+               (= mazeName (get-maze-names 2)) (reverse-backtracking grid))]
+    (set-maze maze)))
 
 (defn get-maze [] @CurrentMaze)
 
