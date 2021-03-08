@@ -4,26 +4,24 @@
   (:require [maze-project.interface.ui-cell :refer [draw-cell]]))
 
 (defn highlight-pos [g pos cellWidth cellHeight clr]
-  (let [padH (/ cellHeight 2)
-        padW (/ cellWidth 2)
+  (let [padH (int (Math/floor (/ cellHeight 1.5)))
+        padW (int (Math/floor (/ cellWidth 1.5)))
         x (+ (* (:col pos) cellWidth) (/ padW 2))
         y (+ (* (:row pos) cellHeight) (/ padH 2))
         w (- cellWidth padW)
         h (- cellHeight padH)]
-    (draw g (ellipse x y w h) (style :background clr))))
+    (draw g (rect x y w h) (style :background clr))))
 
 (defn draw-journey [g canvas maxRows maxCols journey]
   (let [h (.getHeight canvas)
         w (.getWidth canvas)
-        cellHeight (/ h maxRows)
-        cellWidth (/ w maxCols)
+        cellHeight (int (Math/floor (/ h maxRows)))
+        cellWidth (int (Math/floor (/ w maxCols)))
         journeySize (count journey)]
-    (println "=== journey ===")
     (loop [index 0]
       (if (= index journeySize)
         nil
         (let [cellPos (journey index)]
-          (println (:row cellPos) ", " (:col cellPos))
           (highlight-pos g cellPos cellWidth cellHeight (color 0 255 221))
           (recur (inc index)))))))
 

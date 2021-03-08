@@ -19,12 +19,10 @@
         grid (:grid gridMaze)]
     (loop [row startRow col startCol journey [] visitedCells []]
       (if (and (= row endRow) (= col endCol))
-        (vec journey)
+        (vec (filter #(not= % (CellPos. startRow startCol)) journey))
         (let [cell ((grid row) col)
               possiblePathways (get-cells-non-visited-pathways cell row col visitedCells)
               pathwayCount (count possiblePathways)]
-          (println row ", " col)
-          (println "Possible pathways " possiblePathways)
           (if (> pathwayCount 0)
             (let [currentCell (CellPos. row col)
                   updatedJourney (conj journey currentCell)
@@ -38,5 +36,4 @@
                   updatedVisited (conj visitedCells (CellPos. row col))
                   prevRow (:row prevPos)
                   prevCol (:col prevPos)]
-              (println "Going back one cell")
               (recur prevRow prevCol updatedJourney updatedVisited))))))))
