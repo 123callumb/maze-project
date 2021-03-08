@@ -24,7 +24,7 @@
 
 (defn on-save-btn [e]
   (println "Save clicked")
-  (save-maze ))
+  (save-maze))
 
 (defn register-listeners [l]
   (listen (select l [:#mazeComboSel]) :selection update-maze-draw)
