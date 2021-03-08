@@ -9,8 +9,10 @@
 (defn draw-cell [cell g xPos yPos width height]
   (let [verticalWallThickness (int (Math/floor (/ width  10)))
         horizontalWallThickness (int (Math/floor (/ height 10)))
-        wallStyle (style :background (color "#00d6b9"))]
-    (if (= (:north cell) 0) (draw g (rect xPos yPos width horizontalWallThickness) wallStyle))
-    (if (= (:east cell) 0) (draw g (rect (- (+ xPos width) verticalWallThickness) yPos verticalWallThickness height) wallStyle))
-    (if (= (:south cell) 0) (draw g (rect xPos (- (+ yPos height) horizontalWallThickness) width horizontalWallThickness) wallStyle))
-    (if (= (:west cell) 0) (draw g (rect xPos yPos verticalWallThickness height) wallStyle))))
+        adjWidth (+ verticalWallThickness width)
+        adjHeight (+ horizontalWallThickness height)
+        wallStyle (style :background (color 40 40 40))]
+    (if (= (:north cell) 0) (draw g (rect xPos yPos adjWidth horizontalWallThickness) wallStyle))
+    (if (= (:east cell) 0) (draw g (rect (- (+ xPos adjWidth) verticalWallThickness) yPos verticalWallThickness adjHeight) wallStyle))
+    (if (= (:south cell) 0) (draw g (rect xPos (- (+ yPos adjHeight) horizontalWallThickness) adjWidth horizontalWallThickness) wallStyle))
+    (if (= (:west cell) 0) (draw g (rect xPos yPos verticalWallThickness adjHeight) wallStyle))))

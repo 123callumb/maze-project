@@ -28,4 +28,4 @@
     (config! canvas :paint (fn[c g] [(draw-journey g c rows cols journey) (draw-grid maze c g)]))))
 
 (defn create-canvas []
-  (canvas :id :mazeCanvas :background (color 40 40 40) :paint nil))
+  (canvas :id :mazeCanvas :background (color "#00d6b9") :paint nil :border 0))

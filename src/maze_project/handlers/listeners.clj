@@ -1,4 +1,4 @@
-(ns maze-project.interface.listeners
+(ns maze-project.handlers.listeners
   (:use [seesaw.core])
   (:require [maze-project.interface.ui-canvas :refer [draw-maze]]))
 

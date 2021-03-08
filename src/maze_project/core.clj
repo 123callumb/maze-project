@@ -1,7 +1,7 @@
 (ns maze-project.core
   (:use [seesaw.core])
   (:require [maze-project.interface.ui-layout :refer [create-layout]]
-            [maze-project.interface.listeners :refer [register-listeners]]
+            [maze-project.handlers.listeners :refer [register-listeners]]
             [maze-project.interface.ui-canvas :refer [draw-maze]]))
 
 (defn create-content []
