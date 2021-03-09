@@ -12,9 +12,10 @@
         rowSlider (slider :id :rowSlider :min 3 :max 50 :value 20 :orientation :horizontal :minor-tick-spacing 1 :major-tick-spacing 1 :snap-to-ticks? true)
         colSliderLabel (label :text "Maze Columns:")
         colSlider (slider :id :colSlider :min 3 :max 50 :value 20 :orientation :horizontal :minor-tick-spacing 1 :major-tick-spacing 1 :snap-to-ticks? true)
-        solveMazeButton (button :id :solveBtn :text "Solve Maze")]
+        solveMazeButton (button :id :solveBtn :text "Solve Maze")
+        generateMazeButton (button :id :generateBtn :text "Generate Maze")]
     (grid-panel
-      :border "Properties"
+      :border "Maze Options"
       :columns 1
       :items [saveMazeButton
               loadMazeButton
@@ -24,7 +25,8 @@
               rowSlider
               colSliderLabel
               colSlider
-              solveMazeButton])))
+              solveMazeButton
+              generateMazeButton])))
 
 (defn create-bottom-panel []
   (let [rowCountPrefix (label :text "Rows: ")

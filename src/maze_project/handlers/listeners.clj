@@ -11,26 +11,23 @@
     (config! sliderCounter :text sliderVal)
     sliderVal))
 
-(defn get-maze-alg-name [frame]
-  (selection (select frame [:#mazeComboSel])))
+(defn get-maze-settings [frame]
+  {:rows (get-slider-val frame :#rowSlider :#rowCountLabel)
+   :cols (get-slider-val frame :#colSlider :#colCountLabel)
+   :alg (selection (select frame [:#mazeComboSel]))})
 
-(defn update-maze-draw [e]
+(defn generate-maze [e]
   (let [frame (to-frame e)
-        mazeAlgName (get-maze-alg-name frame)
-        rows (get-slider-val frame :#rowSlider :#rowCountLabel)
-        cols (get-slider-val frame :#colSlider :#colCountLabel)]
-    (create-and-set-maze rows cols mazeAlgName)
-    (draw-maze frame)))
+        opt (get-maze-settings frame)]
+    (create-and-set-maze (:rows opt) (:cols opt) (:alg opt))
+    (draw-maze frame false)))
 
 (defn on-save-btn [e] (save-maze))
-(defn on-load-btn [e] ((load-maze)
-                       (println "maze loaded")
-                       (draw-maze (to-frame e))
-                       (println "maze should have been drawn")))
+(defn on-load-btn [e] ((load-maze) (draw-maze (to-frame e) false)))
+(defn on-solve [e] (draw-maze (to-frame e) true))
 
 (defn register-listeners [l]
-  (listen (select l [:#mazeComboSel]) :selection update-maze-draw)
-  (listen (select l [:#rowSlider]) :change update-maze-draw)
-  (listen (select l [:#colSlider]) :change update-maze-draw)
   (listen (select l [:#saveBtn]) :mouse-clicked on-save-btn)
-  (listen (select l [:#loadBtn]) :mouse-clicked on-load-btn))
+  (listen (select l [:#loadBtn]) :mouse-clicked on-load-btn)
+  (listen (select l [:#generateBtn]) :mouse-clicked generate-maze)
+  (listen (select l [:#solveBtn]) :mouse-clicked on-solve))

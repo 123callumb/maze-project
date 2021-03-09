@@ -8,8 +8,8 @@
 (defn create-content []
   (let [layout (create-layout)]
        (register-listeners layout)
-       (create-and-set-maze 20 20 "Binary Tree")
-       (draw-maze layout)
+       ;(create-and-set-maze 20 20 "Binary Tree")
+       ;(draw-maze layout false)
        layout))
 
 (defn -main [& args]
