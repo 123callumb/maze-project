@@ -44,11 +44,13 @@
         cellsLn (lines 4)
         gridCells (str/split cellsLn #"\|")
         startPos (CellPos. (Integer/parseInt  (startPosLn 0)) (Integer/parseInt (startPosLn 1)))
-        endPos (CellPos. (Integer/parseInt (endPosLn 0)) (Integer/parseInt (endPosLn 1)))]
+        endPos (CellPos. (Integer/parseInt (endPosLn 0)) (Integer/parseInt (endPosLn 1)))
+        gridSize (count gridCells)]
     (loop [row 0 col 0 index 0 grid [] currentRow []]
-      (if (and (= row rows) (= col cols))
-       (let [loadedMaze (MazeGrid. grid startPos endPos)]
-         (set-maze loadedMaze))
+      (if (= index gridSize)
+       (let [loadedMaze (MazeGrid. (conj grid currentRow) startPos endPos)]
+         (set-maze loadedMaze)
+         nil)
        (if (= col cols)
          (recur (inc row) 0 index (conj grid currentRow) [])
          (let [cell (get-cell-from-str (gridCells index))

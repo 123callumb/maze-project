@@ -23,7 +23,10 @@
     (draw-maze frame)))
 
 (defn on-save-btn [e] (save-maze))
-(defn on-load-btn [e] (load-maze))
+(defn on-load-btn [e] ((load-maze)
+                       (println "maze loaded")
+                       (draw-maze (to-frame e))
+                       (println "maze should have been drawn")))
 
 (defn register-listeners [l]
   (listen (select l [:#mazeComboSel]) :selection update-maze-draw)
