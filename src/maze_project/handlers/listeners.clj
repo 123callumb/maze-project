@@ -23,7 +23,7 @@
     (draw-maze frame false)))
 
 (defn on-save-btn [e] (save-maze))
-(defn on-load-btn [e] ((load-maze) (draw-maze (to-frame e) false)))
+(defn on-load-btn [e] [(load-maze) (draw-maze (to-frame e) false)])
 (defn on-solve [e] (draw-maze (to-frame e) true))
 
 (defn register-listeners [l]
