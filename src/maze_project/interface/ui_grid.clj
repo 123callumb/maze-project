@@ -3,6 +3,9 @@
         [seesaw.color])
   (:require [maze-project.interface.ui-cell :refer [draw-cell]]))
 
+; File is for drawing arrays of cell positions, each method seems pretty self explanatory
+; Most methods use a loop to iterate across a grid. Methods return nil as they are void methods.
+
 (defn highlight-pos [g pos cellWidth cellHeight clr]
   (let [x (* (:col pos) cellWidth)
         y (* (:row pos) cellHeight)]

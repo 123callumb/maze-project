@@ -9,6 +9,7 @@
 
 ; Top down open cell approach
 (defn open-cell [grid row col]
+  (let [cell ((grid row) col)])
   (cond
     (and (= col 0) (= row 0)) grid
     (= row 0) (open-cell-west grid row col)
@@ -21,10 +22,7 @@
     (loop [grid gridMaze colIndex 0]
       (if (= colIndex colAmount)
         grid
-        (if (:ignore ((grid row) colIndex))
-          (recur grid (inc colIndex))
-          (recur (open-cell grid row colIndex) (inc colIndex)))))))
-
+        (recur (open-cell grid row colIndex) (inc colIndex))))))
 
 (defn binary-tree [gridMaze]
   (let [rowAmount (count gridMaze)]

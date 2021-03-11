@@ -8,13 +8,13 @@
     (vec (repeat rows (vec (repeat cols (create-cell 0 0 0 0 false))))))
 
 (defn pos-is-in-ellipse [rows cols row col]
-  (let [ellipseH (int (Math/floor (/ rows 2)))
-        ellipseW (int (Math/floor (/ cols 2)))
+  (let [ellipseH (int (Math/ceil (/ rows 2)))
+        ellipseW (int (Math/ceil (/ cols 2)))
         aSqr (Math/pow ellipseW 2)
         bSqr (Math/pow ellipseH 2)
         left (/ (Math/pow (- col ellipseW) 2) aSqr)
         right (/ (Math/pow (- row ellipseH) 2) bSqr)]
-    (<= (+ left right) 1)))
+    (< (+ left right) 1)))
 
 (defn create-ellipse-grid [rows cols]
   (loop [row 0 col 0 grid [] currentRow []]
