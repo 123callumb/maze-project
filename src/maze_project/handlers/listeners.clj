@@ -14,12 +14,13 @@
 (defn get-maze-settings [frame]
   {:rows (get-slider-val frame :#rowSlider :#rowCountLabel)
    :cols (get-slider-val frame :#colSlider :#colCountLabel)
-   :alg (selection (select frame [:#mazeComboSel]))})
+   :alg (selection (select frame [:#mazeComboSel]))
+   :shape (selection (select frame [:#mazeShapeSel]))})
 
 (defn generate-maze [e]
   (let [frame (to-frame e)
         opt (get-maze-settings frame)]
-    (create-and-set-maze (:rows opt) (:cols opt) (:alg opt))
+    (create-and-set-maze (:rows opt) (:cols opt) (:alg opt) (:shape opt))
     (draw-maze frame false)))
 
 (defn on-save-btn [e] (save-maze))

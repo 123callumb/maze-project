@@ -1,13 +1,15 @@
 (ns maze-project.interface.ui-layout
   (:use [seesaw.core])
   (:require [maze-project.interface.ui-canvas :refer [create-canvas]]
-            [maze-project.models.maze :refer [get-maze-names]]))
+            [maze-project.models.maze :refer [get-maze-names]]
+            [maze-project.models.grid :refer [get-grid-shape-names]]))
 
 (defn create-left-panel []
   (let [saveMazeButton (button :id :saveBtn :text "Save Maze")
         loadMazeButton (button :id :loadBtn :text "Load Maze")
         mazeComboLabel (label :text "Set maze generation algorithm:")
         mazeComboBox (combobox :id :mazeComboSel :model get-maze-names)
+        mazeShapeBox (combobox :id :mazeShapeSel :model get-grid-shape-names)
         rowSliderLabel (label :text "Maze Rows:")
         rowSlider (slider :id :rowSlider :min 3 :max 50 :value 20 :orientation :horizontal :minor-tick-spacing 1 :major-tick-spacing 1 :snap-to-ticks? true)
         colSliderLabel (label :text "Maze Columns:")
@@ -21,6 +23,7 @@
               loadMazeButton
               mazeComboLabel
               mazeComboBox
+              mazeShapeBox
               rowSliderLabel
               rowSlider
               colSliderLabel

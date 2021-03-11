@@ -7,7 +7,7 @@
            (maze_project.models.grid MazeGrid)
            (maze_project.models.cell CellPos)))
 
-(def fileExt "mze")
+(def fileExt "txt")
 
 (defn get-file [toSave]
   (let [fileChooser (JFileChooser.)

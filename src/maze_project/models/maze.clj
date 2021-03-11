@@ -11,8 +11,8 @@
 (defn set-maze [newMaze]
   (swap! CurrentMaze (fn[old new] new) newMaze))
 
-(defn create-and-set-maze [rows cols mazeName]
-  (let [grid (create-grid rows cols)
+(defn create-and-set-maze [rows cols mazeName shapeName]
+  (let [grid (create-grid rows cols shapeName)
         maze (cond
                (= mazeName (get-maze-names 0)) (binary-tree grid)
                (= mazeName (get-maze-names 1)) (aldous-broder grid)

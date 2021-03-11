@@ -12,7 +12,10 @@
         adjWidth (+ verticalWallThickness width)
         adjHeight (+ horizontalWallThickness height)
         wallStyle (style :background (color 40 40 40))]
-    (if (= (:north cell) 0) (draw g (rect xPos yPos adjWidth horizontalWallThickness) wallStyle))
-    (if (= (:east cell) 0) (draw g (rect (- (+ xPos adjWidth) verticalWallThickness) yPos verticalWallThickness adjHeight) wallStyle))
-    (if (= (:south cell) 0) (draw g (rect xPos (- (+ yPos adjHeight) horizontalWallThickness) adjWidth horizontalWallThickness) wallStyle))
-    (if (= (:west cell) 0) (draw g (rect xPos yPos verticalWallThickness adjHeight) wallStyle))))
+    (if (:ignore cell)
+      (draw g (rect xPos yPos adjWidth adjHeight) wallStyle)
+      [(if (= (:north cell) 0) (draw g (rect xPos yPos adjWidth horizontalWallThickness) wallStyle))
+       (if (= (:east cell) 0) (draw g (rect (- (+ xPos adjWidth) verticalWallThickness) yPos verticalWallThickness adjHeight) wallStyle))
+       (if (= (:south cell) 0) (draw g (rect xPos (- (+ yPos adjHeight) horizontalWallThickness) adjWidth horizontalWallThickness) wallStyle))
+       (if (= (:west cell) 0) (draw g (rect xPos yPos verticalWallThickness adjHeight) wallStyle))])))
+
