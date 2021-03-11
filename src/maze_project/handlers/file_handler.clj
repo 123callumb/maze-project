@@ -4,7 +4,7 @@
             [clojure.string :as str])
   (:import (javax.swing JFileChooser)
            (javax.swing.filechooser FileNameExtensionFilter)
-           (maze_project.models.grid MazeGrid)
+           (maze_project.models.maze MazeGrid)
            (maze_project.models.cell CellPos)))
 
 (def fileExt "txt")

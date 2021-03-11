@@ -3,13 +3,9 @@
   (:import (maze_project.models.cell CellPos)))
 
 (def get-grid-shape-names ["Rectangle" "Ellipse"])
-(defrecord MazeGrid [grid startPos endPos])
 
 (defn create-rect-grid [rows cols]
-  (MazeGrid.
-    (vec (repeat rows (vec (repeat cols (create-cell 0 0 0 0 false)))))
-    (CellPos. 0 0)
-    (CellPos. 0 0)))
+    (vec (repeat rows (vec (repeat cols (create-cell 0 0 0 0 false))))))
 
 (defn pos-is-in-ellipse [rows cols row col]
   (let [ellipseH (int (Math/floor (/ rows 2)))
@@ -23,7 +19,7 @@
 (defn create-ellipse-grid [rows cols]
   (loop [row 0 col 0 grid [] currentRow []]
     (if (and (= row rows) (= col cols))
-      (MazeGrid. grid (CellPos. 0 0) (CellPos. 0 0))
+      grid
       (if (= col cols)
         (recur (inc row) 0 (conj grid currentRow) [])
         (let [ignoreCell (not (pos-is-in-ellipse rows cols row col))
@@ -34,3 +30,17 @@
   (cond
     (= (get-grid-shape-names 0) shapeName) (create-rect-grid rows cols)
     (= (get-grid-shape-names 1) shapeName) (create-ellipse-grid rows cols)))
+
+(defn get-rnd-grid-pos [grid]
+  (let [rows (count grid)
+        cols (count (grid 0))
+        startRow (rand-int rows)
+        startCol (rand-int cols)]
+    (loop [rndRow startRow rndCol startCol]
+      (let [cell ((grid rndRow) rndCol) ignore (:ignore cell)]
+        (if (not ignore)
+          (CellPos. rndRow rndCol)
+          (recur (rand-int rows) (rand-int cols)))))))
+
+(defn get-valid-cell-count [grid]
+  (reduce (fn [counter row] (reduce #(if (:ignore %2) %1 (inc %1)) counter row)) 0 grid))

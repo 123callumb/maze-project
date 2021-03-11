@@ -16,7 +16,7 @@
 
 ; See if a cell at a given position has already been visited
 (defn cell-already-visited [cell]
-  (or (= (:north cell) 1) (= (:east cell) 1) (= (:west cell) 1) (= (:south cell) 1)))
+  (or (= (:north cell) 1) (= (:east cell) 1) (= (:west cell) 1) (= (:south cell) 1) (:ignore cell)))
 
 ; Break a wall between a two cells and return the updated grid
 (defn break-walls [grid row col nRow nCol]

@@ -18,4 +18,3 @@
        (if (= (:east cell) 0) (draw g (rect (- (+ xPos adjWidth) verticalWallThickness) yPos verticalWallThickness adjHeight) wallStyle))
        (if (= (:south cell) 0) (draw g (rect xPos (- (+ yPos adjHeight) horizontalWallThickness) adjWidth horizontalWallThickness) wallStyle))
        (if (= (:west cell) 0) (draw g (rect xPos yPos verticalWallThickness adjHeight) wallStyle))])))
-
