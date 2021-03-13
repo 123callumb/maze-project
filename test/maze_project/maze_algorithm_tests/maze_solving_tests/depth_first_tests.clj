@@ -7,7 +7,7 @@
                                               alg-name-binary-tree
                                               get-maze]]
             [maze-project.models.cell :refer [create-cell]])
-  (:import [maze_project.models.cell CellPos]))
+  (:import (maze_project.models.cell CellPos)))
 
 (deftest get-cells-non-visited-pathways-tests
     (testing "Surrounding cells are all unvisted"
