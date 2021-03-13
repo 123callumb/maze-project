@@ -1,4 +1,5 @@
 (ns maze-project.algorithms.maze-solving.depth-first
+  (:require [maze-project.models.cell])
   (:import (maze_project.models.cell CellPos)))
 
 (defn get-cells-non-visited-pathways [cell row col visitedCells]
