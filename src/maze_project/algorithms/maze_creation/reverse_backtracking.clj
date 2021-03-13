@@ -1,6 +1,7 @@
 (ns maze-project.algorithms.maze-creation.reverse-backtracking
   (:require [maze-project.algorithms.maze-creation.alg-helper :refer [cell-already-visited break-walls]]
-            [maze-project.models.grid :refer [get-valid-cell-count get-rnd-grid-pos]])
+            [maze-project.models.grid :refer [get-valid-cell-count get-rnd-grid-pos]]
+            [maze-project.models.cell])
   (:import (maze_project.models.cell CellPos)))
 
 (defn get-non-visited-neighbours [grid row col maxRow maxCol]
