@@ -2,7 +2,7 @@
   (:use [seesaw.core])
   (:require [maze-project.interface.ui-canvas :refer [draw-maze]]
             [maze-project.handlers.file-handler :refer [save-maze load-maze]]
-            [maze-project.models.maze :refer [create-and-set-maze alg-name-binary-tree]]))
+            [maze-project.models.maze :refer [create-and-set-maze alg-name-binary-tree get-maze]]))
 
 ; Get current slider value and update the info at the bottom
 ; of the layout
