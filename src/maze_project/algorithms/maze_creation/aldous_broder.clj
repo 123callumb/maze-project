@@ -16,7 +16,9 @@
         {:nextRow nextRow :nextCol nextCol}
         (recur)))))
 
-
+; The aldous broder algorithm randomly goes through neighbouring cells until it finds a cell
+; that is unvisited and has no broken walls. It breaks the walls and then continues until all
+; cells have been visited.
 (defn aldous-broder [gridMaze]
   (let [maxRows (count gridMaze)
         maxCols (count (gridMaze 0))

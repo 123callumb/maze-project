@@ -5,7 +5,8 @@
       [seesaw.color]
       [seesaw.border]))
 
-
+; Drawing a cell to the graphics canvas, also accounts for the width and height of the
+; window so the maze can dynamically be resized, even if a dumb aspect ratio looks silly.
 (defn draw-cell [cell g xPos yPos width height]
   (let [verticalWallThickness (int (Math/floor (/ width  10)))
         horizontalWallThickness (int (Math/floor (/ height 10)))

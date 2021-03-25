@@ -7,9 +7,12 @@
 
 ; Using part of the functionality from how the maze is solved, the same
 ; type of algorithm (depth first) can be used to make sure that the maze is a fully
-; connected maze. My solving algorithm stops once the end position has been
-; located, this is not looking for an exit, it simply stops once all cells
+; connected maze.
+;
+; My solving algorithm stops once the end position has been
+; located. However, this algorithm is not looking for an exit, it simply stops once all cells
 ; have been visited.
+
 ; This method takes a very ling time on larger mazes as it needs to make sure
 ; every cell is visitable from every position
 (defn maze-is-fully-linked [grid]

@@ -10,6 +10,7 @@
         removeVisited (filter #(and (not= % nil) (not-any? (fn [visited] (= visited %)) visitedCells)) cellsToVisit)]
     (vec removeVisited)))
 
+; This algorithm sort of uses a bit of reverse back tracking, it will reverse back track until it finds the exit position
 (defn depth-first [gridMaze]
   (let [mazeStartPos (:startPos gridMaze)
         mazeEndPos (:endPos gridMaze)

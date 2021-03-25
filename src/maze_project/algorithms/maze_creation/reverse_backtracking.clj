@@ -4,6 +4,8 @@
             [maze-project.models.cell])
   (:import (maze_project.models.cell CellPos)))
 
+; Looks at all four potential neighbours to a cell and will return all of the
+; cells that have not yet been visited.
 (defn get-non-visited-neighbours [grid row col maxRow maxCol]
   (let [lCol (dec col)
         lRow (dec row)
@@ -18,6 +20,10 @@
                         (if (not southVisited) (CellPos. hRow col))
                         (if (not westVisited) (CellPos. row lCol))]))))
 
+; Reverse back tracking will do something similar to aldous broder but will turn
+; back on itself. There is a journey variable in the algorithm that is used to turn back.
+; It also makes sure not to revisit already visited cells, unless they are part
+; of the reverse journey.
 (defn reverse-backtracking [gridMaze]
   (let [maxRows (count gridMaze)
         maxCols (count (gridMaze 0))

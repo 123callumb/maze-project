@@ -7,9 +7,11 @@
 (defn create-cell [n e s w ignore]
   (MazeCell. n e s w ignore))
 
+; To help with saving the maze
 (defn print-cell-to-str [cell]
   (str (:north cell) "," (:east cell) "," (:south cell) "," (:west cell) "," (:ignore cell) "|"))
 
+; To help with loading and parsing the maze form a file
 (defn get-cell-from-str [cellStr]
   (let [points (str/split cellStr #",")]
     (create-cell

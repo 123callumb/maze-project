@@ -9,6 +9,7 @@
 
 (def fileExt "txt")
 
+; Hook into Javas JFileChooser to get a file directory, change between save and open mode
 (defn get-file [toSave]
   (let [fileChooser (JFileChooser.)
         supportedExt (FileNameExtensionFilter. (str "." fileExt) (into-array [fileExt]))
@@ -17,6 +18,9 @@
     (if (= retVal JFileChooser/APPROVE_OPTION)
       (.getAbsolutePath (.getSelectedFile fileChooser)))))
 
+; Save the maze, each cell is broken up by a | and the first few lines
+; of the save file are the mazes properties like its starting position and
+; end position
 (defn save-maze []
   (let [fileName (get-file true)
         maze (get-maze)
@@ -33,6 +37,7 @@
         fullFilePath (str fileName "." fileExt)]
     (spit fullFilePath finalStr :append false)))
 
+; Load the maze. Basically parsing what was saved.
 (defn load-maze []
   (let [fileName (get-file false)
         file (slurp fileName)

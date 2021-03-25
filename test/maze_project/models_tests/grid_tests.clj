@@ -50,7 +50,7 @@
           expectedResult (* cols rows)
           result (get-valid-cell-count grid)]
       (is (= result expectedResult))))
-  (testing "get calid cell count of grid with ignore cells"
+  (testing "get valid cell count of grid with ignore cells"
     (let [cols 8
           rows 10
           grid (create-rect-grid rows cols)

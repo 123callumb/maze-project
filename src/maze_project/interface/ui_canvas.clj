@@ -6,8 +6,11 @@
             [maze-project.models.maze :refer [get-maze]]
             [maze-project.algorithms.maze-solving.depth-first :refer [depth-first]]))
 
+; Grab the ui canvas where the maze is drawn
 (defn get-maze-canvas [frame] (select frame [:#mazeCanvas]))
 
+; Draw the maze on the canvas, also the ability to pass a boolean
+; in to calculate the solution and draw it here as well.
 (defn draw-maze [frame showSolution]
   (let [maze (get-maze)
         rows (count (:grid maze)) ;temp for now
